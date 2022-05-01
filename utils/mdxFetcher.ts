@@ -1,3 +1,6 @@
+import fs from "fs"
+import matter from "gray-matter"
+
 export type FrontMatter = {
     [key: string]: any
     slug: string
@@ -17,7 +20,19 @@ export function slugifyTitle(titles: string | string[]): string | string[] {
     return []
 }
 
+export async function getAllFrontMatter(): Promise<any> {
+    const files = fs.readdirSync(`${process.cwd()}/mdx`)
+    const postsMetadata: FrontMatter[] = files.map((file) => {
+        const { data } = matter(fs.readFileSync(`${process.cwd()}/mdx/${file}`, "utf8"))
+        return {
+            ...data,
+            slug: slugifyTitle(data.title) as string
+        }
+    })
+    return postsMetadata
+}
 
+/*
 export async function getAllFrontMatter(): Promise<FrontMatter[]> {
     const postMetadata = await fetch(`${process.env.DOMAIN_URL}/api/articles`, {
         method: "POST",
@@ -35,7 +50,7 @@ export async function getAllFrontMatter(): Promise<FrontMatter[]> {
 
     return postMetadata;
 }
-
+*/
 export async function getPageData(slug: string) {
     const postData = await fetch(`${process.env.DOMAIN_URL}/api/articles`, {
         method: "POST",

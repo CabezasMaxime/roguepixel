@@ -38,11 +38,11 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({params}: any) {
-  const postsData: FrontMatter[] = await getFrontMatterByTag(params.tag)
+  //const postsData: FrontMatter[] = await getFrontMatterByTag(params.tag)
   
   return { 
     props: { 
-      posts: postsData,
+      posts: [], //postsData,
       tag: params.tag
     },
     revalidate: 10
