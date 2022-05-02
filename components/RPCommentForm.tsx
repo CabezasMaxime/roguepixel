@@ -21,7 +21,7 @@ export default function RPCommentForm({}: CommentFormProps) {
     return (
         <Box textAlign="center" maxWidth="300px" margin="auto">
             <FormControl isInvalid={isErrorUsername}>
-                <FormLabel htmlFor='username'>Username</FormLabel>
+                <FormLabel htmlFor="username">Username</FormLabel>
                 <Input
                     id="username"
                     type="text"
@@ -30,10 +30,10 @@ export default function RPCommentForm({}: CommentFormProps) {
                 />
                 {!isErrorUsername ? (
                 <FormHelperText>
-                    Enter the username you'd like to receive the newsletter on.
+                    {"Enter the username you'd like to receive the newsletter on."}
                 </FormHelperText>
                 ) : (
-                <FormErrorMessage>Username is required.</FormErrorMessage>
+                <FormErrorMessage>{"Username is required."}</FormErrorMessage>
                 )}
             </FormControl>
 
