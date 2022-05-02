@@ -5,7 +5,7 @@ type TagsListProps = {
     tags: string[]
 }
 
-export default function TagsList({tags}: TagsListProps) {
+export default function RPTagsList({tags}: TagsListProps) {
     const capitalizeFirstLetter = (string: string) => {
         return string.charAt(0).toUpperCase() + string.slice(1);
     }

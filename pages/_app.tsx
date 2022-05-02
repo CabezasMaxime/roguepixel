@@ -3,7 +3,7 @@ import { ChakraProvider } from "@chakra-ui/react"
 import { MDXProvider } from '@mdx-js/react'
 import type { AppProps } from 'next/app'
 
-import MyButton from '../components/MyButton'
+import MyButton from '../components/RPButton'
 import Image from 'next/image'
 
 const components = {

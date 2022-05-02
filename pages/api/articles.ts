@@ -17,7 +17,6 @@ type PostSource = {
         slug: string | string[] | undefined,
         tags: string[] | undefined
     }
-*/
 
 export default async function handler(
   req: NextApiRequest,
@@ -71,3 +70,5 @@ export default async function handler(
     }
 
 }
+*/
+

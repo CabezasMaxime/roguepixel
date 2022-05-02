@@ -32,57 +32,30 @@ export async function getAllFrontMatter(): Promise<any> {
     return postsMetadata
 }
 
-/*
-export async function getAllFrontMatter(): Promise<FrontMatter[]> {
-    const postMetadata = await fetch(`${process.env.DOMAIN_URL}/api/articles`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({filter: "*"})
-    })
-    .then(res => {
-        return res.json()
-    })
-    .then((data: any) => {
-        return data.postsMetadata
-    })
-
-    return postMetadata;
-}
-*/
 export async function getPageData(slug: string) {
-    const postData = await fetch(`${process.env.DOMAIN_URL}/api/articles`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({filter: "slug", slug})
+    const files = fs.readdirSync(`${process.cwd()}/mdx`)
+    const fileFilter = files.filter((file) => {
+        const { data } = matter(fs.readFileSync(`${process.cwd()}/mdx/${file}`, "utf8"))
+        return slugifyTitle(data.title) === slug
     })
-    .then(res => {
-        return res.json()
-    })
-    .then(data => {
-        return data.source
-    })
-
-    return postData
+    const source: string = fs.readFileSync(`${process.cwd()}/mdx/${fileFilter}`, "utf8")
+    return source
 }
 
 export async function getFrontMatterByTag(tag: string) {
-    const postData = await fetch(`${process.env.DOMAIN_URL}/api/articles`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({filter: "tag", tag})
-    })
-    .then(res => {
-        return res.json()
-    })
-    .then(data => {
-        return data.postsMetadata
+    const files = fs.readdirSync(`${process.cwd()}/mdx`)
+    const fileName = files.filter((file) => {
+        const { data } = matter(fs.readFileSync(`${process.cwd()}/mdx/${file}`, "utf8"))
+        return data.tags.includes(tag)
     })
 
-    return postData
+    const postsMetadata: FrontMatter[] = fileName.map((file) => {
+        const { data } = matter(fs.readFileSync(`${process.cwd()}/mdx/${file}`, "utf8"))
+        return {
+            ...data,
+            slug: slugifyTitle(data.title) as string
+        }
+    })
+
+    return postsMetadata
 }

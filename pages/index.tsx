@@ -3,7 +3,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
-import TagsList from '../components/TagList'
+import TagsList from '../components/RPTagList'
 import { FrontMatter, getAllFrontMatter } from '../utils/mdxFetcher'
 
 type HomeProps = {
@@ -47,13 +47,12 @@ const Home: NextPage<HomeProps> = ({posts}) => {
 
 export async function getStaticProps() {
   const postsData: FrontMatter[] = await getAllFrontMatter()
-  //console.log("postsData", postsData)
 
   return {
     props: {
       posts: postsData
     },
-    revalidate: 10
+    revalidate: 3600
   }
 }
 
