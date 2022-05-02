@@ -7,12 +7,12 @@ type CommentFormProps = {
 }
 
 export default function RPCommentForm({}: CommentFormProps) {
-    const [input, setInput] = useState('')
+    const [input, setInput] = useState("")
     const [isLoading, setIsLoading] = useState(false)
 
     const handleInputChange = (e: any) => setInput(e.target.value)
   
-    const isErrorUsername = input === ''
+    const isErrorUsername = input === ""
   
     const submit = async () => {
         setIsLoading(true)
@@ -23,8 +23,8 @@ export default function RPCommentForm({}: CommentFormProps) {
             <FormControl isInvalid={isErrorUsername}>
                 <FormLabel htmlFor='username'>Username</FormLabel>
                 <Input
-                    id='username'
-                    type='text'
+                    id="username"
+                    type="text"
                     value={input}
                     onChange={handleInputChange}
                 />
@@ -39,7 +39,7 @@ export default function RPCommentForm({}: CommentFormProps) {
 
             <FormControl>
                 <Textarea
-                    id='body'
+                    id="body"
                     value={input}
                     onChange={handleInputChange}
                 />
@@ -48,7 +48,7 @@ export default function RPCommentForm({}: CommentFormProps) {
             <RPButton
                 border="none"
                 variant="solid"
-                colorScheme='teal'
+                colorScheme="teal"
                 mt={4}
                 isLoading={isLoading}
                 loadingText="Submitting..."

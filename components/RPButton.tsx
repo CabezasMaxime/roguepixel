@@ -10,7 +10,7 @@ export default function RPButton({children, ...props}: MyButtonProps) {
     <Button {...props} 
       border="none"
       variant="solid"
-      colorScheme='teal'
+      colorScheme="teal"
       mt={4}
     >{children}</Button>
   )
