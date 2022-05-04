@@ -60,7 +60,7 @@ export default function RPNavbar() {
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} alignItems={'center'}>
-            <Box><a href="/">Logo</a></Box>
+            <Box><Link href="/"><a>Logo</a></Link></Box>
             <HStack
               as={'nav'}
               spacing={4}
