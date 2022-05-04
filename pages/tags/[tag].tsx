@@ -1,6 +1,10 @@
 import { FrontMatter, getFrontMatterByTag } from '../../utils/mdxFetcher'
 import Tags from '../../config/tags'
 import { NextPage } from 'next'
+import { SimpleGrid } from '@chakra-ui/react'
+import { useRouter } from 'next/router'
+import RPArticleCard from '../../components/RPArticleCard'
+import RPTitle from '../../components/RPTitle'
 
 type TagsFilterPageProps = {
   posts: FrontMatter[]
@@ -9,21 +13,27 @@ type TagsFilterPageProps = {
 
 const TagsFilterPage: NextPage<TagsFilterPageProps> = ({ tag, posts }) => {
   //console.log("posts", posts)
+  const router = useRouter()
+
+  const capitalizeFirstLetter = (string: string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
   return (
-    <div className="wrapper">
-      <h1>{tag}</h1>
-      {
-        posts.map((post, index) => {
-          return (
-            <div key={index}>
-              <h2>{post.title}</h2>
-              <p>{post.description}</p>
-            </div>
-          )
-        })
-      }
-    </div>
+    <main>
+      <RPTitle>{capitalizeFirstLetter(tag)}</RPTitle>
+      <SimpleGrid columns={[1, 1, 1, 2, 3]} spacing={["40px", null, null, "40px 2rem", "40px 5rem"]} width={["100%", "100%", "80%"]} m="auto">
+        {
+          posts.map((post: FrontMatter, postIndex: number) => (
+            <RPArticleCard 
+              key={postIndex}
+              post={post}
+              router={router}
+            />
+          ))
+        }
+        </SimpleGrid>
+      </main>
   )
 }
 

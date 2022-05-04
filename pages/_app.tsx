@@ -1,19 +1,21 @@
 import '../styles/globals.css'
-import { ChakraProvider } from "@chakra-ui/react"
+import { Box, ChakraProvider, Text } from "@chakra-ui/react"
 import { MDXProvider } from '@mdx-js/react'
 import type { AppProps } from 'next/app'
 
-import MyButton from '../components/RPButton'
-import Image from 'next/image'
+import RPButton from '../components/RPButton'
+import RPMDXImage from '../components/RPMDXImage'
+import RPMainLayout from '../components/RPMainLayout'
+import RPTitle from '../components/RPTitle'
 
 const components = {
-  MyButton,
-  img: (props: any) => (
-    <span style={{display: "block", width: "100vw", textAlign: "center"}}>
-      <Image src={props.src} layout="intrinsic" width={"800px"} height={"600px"} objectFit="contain" alt={props.alt}></Image>
-      <br />
-      <i style={{position: "relative", top: "-25px", textAlign: "center", fontSize: "12px", color: "grey"}}>{props.alt}</i>
-    </span>
+  RPButton,
+  RPMDXImage,
+  h1: ({children}: any) => (
+    <RPTitle padding={["1rem 0", null, null, "2rem 10rem"]} m="0 auto">{children}</RPTitle>
+  ),
+  p: ({children}: any) => (
+    <Text as="p" fontSize={"16px"}>{children}</Text>
   )
 }
 
@@ -21,7 +23,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider resetCSS={false}>
       <MDXProvider components={components}>
-        <Component {...pageProps} />
+
+        <RPMainLayout>
+          <Component {...pageProps} />
+        </RPMainLayout>
+
       </MDXProvider>
     </ChakraProvider>
   )

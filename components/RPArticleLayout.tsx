@@ -3,15 +3,21 @@ import Head from "next/head";
 
 export function RPArticleLayout({ children, meta }: any) {
   return (
-    <div>
+    <Box width={"100%"}>
         <Head>
             <title>{meta.title}</title>
             <meta name="description" content={meta.description} />
         </Head>
-        <Box bgColor="grey" width={["100%", "100%", "80%"]} margin="auto" padding="0 1rem">
+        <Box
+          bgColor="gray.100"
+          boxShadow="0 2px 10px 1px rgba(0, 0, 0, 0.3), 0 1px 2px 1px rgba(0, 0, 0, 0.2)"
+          width={["100%", "100%", "auto"]}
+          marginRight={[0, 0, 0, 0, 0, "2rem"]}
+          padding="0 1rem"
+        >
           {children}
         </Box>
-    </div>
+    </Box>
   )
 }
 
