@@ -37,3 +37,32 @@ export async function getCommentsFromAirTable(slug: string) {
 
     return comments
 }
+
+export async function createCommentsOnAirtable({username, body, slug}: any) {
+    try {
+        let { err } = await base("Commentaires").create([
+            {
+                fields: {
+                    Slug: slug,
+                    Notes: body,
+                    Status: "Pending",
+                    Username: username,
+                    Date: new Date().toISOString(),
+                }
+            }
+        ])
+        if(err) {
+            return {
+                message: "failure"
+            }
+        } else {
+            return {
+                message: "success"
+            }
+        }
+    } catch(err) {
+        return {
+            message: "failure"
+        }
+    }
+}

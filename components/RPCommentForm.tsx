@@ -1,9 +1,9 @@
-import { Avatar, Box, FormControl, FormLabel, Input, Textarea } from "@chakra-ui/react"
+import { Avatar, Box, FormControl, FormLabel, Input, Textarea, FormHelperText } from "@chakra-ui/react"
 import { useState } from "react"
 import RPButton from "./RPButton"
 
 type CommentFormProps = {
-
+    slug: string
 }
 
 export type CommentType = {
@@ -26,9 +26,23 @@ export const CommentDisplay = ({comment}: {comment: CommentType }) => {
     )
 }
 
-export function RPCommentForm({}: CommentFormProps) {
-    const [username, setUsername] = useState("Anonymous")
-    const [body, setBody] = useState("something to say...")
+const sendComment = async ({username, body, slug}: {username: string, body: string, slug: string}) => {
+    const response = await fetch("/api/comments", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({username, body, slug})
+    })
+
+    const data = await response.json()
+    return data
+}
+
+export function RPCommentForm({ slug }: CommentFormProps) {
+    const [username, setUsername] = useState("")
+    const [body, setBody] = useState("")
+    const [resultMessage, setResultMessage] = useState("")
 
     const [isLoading, setIsLoading] = useState(false)
 
@@ -38,8 +52,18 @@ export function RPCommentForm({}: CommentFormProps) {
     const isErrorBody = body === ""
   
     const submit = async () => {
-        console.log("submit", { username, body })
         setIsLoading(true)
+        
+        await sendComment({username, body, slug})
+        .then((data) => {
+            const { error } = data
+            if (error) {
+                setResultMessage(error)
+            } else {
+                setResultMessage(`Votre commentaire a bien été envoyé. Il apparaîtra après validation par un administrateur.`)
+            }
+            setIsLoading(false)
+        })
     }
 
     return (
@@ -53,6 +77,7 @@ export function RPCommentForm({}: CommentFormProps) {
                     onChange={handleSetUsername}
                     border="solid 1px black !important"
                     size="sm"
+                    placeholder="Anonymous"
                 />
             </FormControl>
             <br />
@@ -62,7 +87,9 @@ export function RPCommentForm({}: CommentFormProps) {
                     value={body}
                     onChange={handleSetBody}
                     border="solid 1px black !important"
+                    placeholder="Something to say?"
                 />
+            <FormHelperText>{resultMessage}</FormHelperText>
             </FormControl>
 
             <RPButton

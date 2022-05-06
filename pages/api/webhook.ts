@@ -2,16 +2,22 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
 type Data = {
-  name: string
+    [key: string]: any
+    error?: string,
 }
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-    const data: any = req.body
-    console.log("body", data)
+    const { api_key, comment_id, status } = req.query
 
+    if(api_key != process.env.WEBHOOK_API_KEY) {
+        res.status(403).json({
+            error: "Invalid API key"
+        })
+    }
+    
     const automatedUrl = "https://hooks.airtable.com/workflows/v1/genericWebhook/app8Cl05qb0RFX88k/wfl1gge7uVhgo63cA/wtrLCYiOYfpKXpFfQ"
 
     await fetch(automatedUrl, {
@@ -21,7 +27,8 @@ export default async function handler(
         },
         body: JSON.stringify({
             fields: {
-                Username: "TOTO",
+                ID: comment_id,
+                Status: status,
             },
         }),
     })
@@ -29,8 +36,6 @@ export default async function handler(
         response.json()
     })
     .then(data => {
-        res.status(200).json({
-            name: "John Doe",
-        })
+        res.status(200).json({data})
     })
 }

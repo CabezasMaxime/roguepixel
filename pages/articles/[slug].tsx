@@ -6,7 +6,7 @@ import CommentForm, { CommentType } from '../../components/RPCommentForm'
 import RPArticleLayout from '../../components/RPArticleLayout'
 import { getCommentsFromAirTable } from '../../utils/airTableFetcher'
 
-export default function ArticlePage({ source, comments }: any) {
+export default function ArticlePage({ source, comments, slug }: any) {
 
   return (
     <RPArticleLayout meta={source}>
@@ -18,7 +18,7 @@ export default function ArticlePage({ source, comments }: any) {
             return <CommentForm.DisplayComment key={comment.id} comment={comment} />
           })
         }
-        <CommentForm.Form />
+        <CommentForm.Form slug={slug} />
       </div>
     </RPArticleLayout>
   )
@@ -46,7 +46,8 @@ export async function getStaticProps({params}: any) {
   return { 
     props: { 
       source: mdxSource,
-      comments: comments
+      comments: comments,
+      slug: params.slug,
     },
     revalidate: 60
   }
