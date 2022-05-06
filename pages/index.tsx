@@ -22,7 +22,7 @@ const Home: NextPage<HomeProps> = ({posts}) => {
       </Head>
 
       <main>
-        <SimpleGrid columns={[1, 1, 1, 2, 3]} spacing={["40px", null, null, "40px 2rem", "40px 5rem"]} width={["100%", "100%", "100%"]} paddingRight={[0, 0, 0, 0, 0, "2rem"]} m="auto">
+        <SimpleGrid columns={[1, 2, 2, 2, 3]} spacing={["40px", null, null, "40px 2rem"]} width={["100%", "100%", "100%"]} paddingRight={[0, 0, 0, "2rem", "2rem", "2rem"]} m="auto">
         {
           posts.map((post: FrontMatter, postIndex: number) => (
             <RPArticleCard
