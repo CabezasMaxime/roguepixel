@@ -11,8 +11,7 @@ export function RPArticleLayout({ children, meta }: any) {
         <Box
           bgColor="gray.100"
           boxShadow="0 2px 10px 1px rgba(0, 0, 0, 0.3), 0 1px 2px 1px rgba(0, 0, 0, 0.2)"
-          width={["100%", "100%", "auto"]}
-          marginRight={[0, 0, 0, 0, 0, "2rem"]}
+          marginRight={[0, 0, 0, 0, "2rem"]}
           padding="0 1rem"
         >
           {children}

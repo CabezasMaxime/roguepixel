@@ -2,7 +2,7 @@ import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote } from 'next-mdx-remote'
 
 import { getAllFrontMatter, getPageData, slugifyTitle } from '../../utils/mdxFetcher'
-import CommentForm from '../../components/RPCommentForm'
+import CommentForm, { CommentType } from '../../components/RPCommentForm'
 import RPArticleLayout from '../../components/RPArticleLayout'
 import { getCommentsFromAirTable } from '../../utils/airTableFetcher'
 
@@ -11,18 +11,15 @@ export default function ArticlePage({ source, comments }: any) {
   return (
     <RPArticleLayout meta={source}>
       <MDXRemote {...source} lazy={true} />
+      <hr />
       <div style={{width: "50%", margin: "auto"}}>
         {
-          comments.map((comment: any) => (
-            <div key={comment.id} style={{background: "white", padding: "0.5rem", borderRadius: "5px"}}>
-              <span style={{display: "flex", justifyContent: "space-between"}}><b>{comment.content.username}</b> <i style={{fontSize: "12px"}}>{comment.content.date}</i></span>
-              <hr />
-              <p>{comment.content.notes}</p>
-            </div>
-          ))
+          comments.map((comment: CommentType) => {
+            return <CommentForm.DisplayComment key={comment.id} comment={comment} />
+          })
         }
+        <CommentForm.Form />
       </div>
-      <CommentForm />
     </RPArticleLayout>
   )
 }
