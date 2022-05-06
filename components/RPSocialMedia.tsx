@@ -20,6 +20,10 @@ export default function RPSocialMedia({ size }: { size?: "sm" | "md" | "lg" }) {
         borderRadius = "10px"
     }
 
+    // TODO
+    // Add Discord and Youtube links
+    // Add box shadow for button effects / hover  boxShadow={"rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;"}
+    
     return (
         <Box>
             <HStack>

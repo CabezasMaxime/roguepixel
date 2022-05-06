@@ -2,12 +2,13 @@ import { Box, Flex, Text } from "@chakra-ui/react"
 import { ReactNode } from "react"
 import RPFooter from "./RPFooter"
 import RPHeader from "./RPHeader"
-import RPNavbar from "./RPNavbar"
+import RPNavbarButtoned from "./RPNavbarButtoned"
 
 export default function RPMainLayout({children}: {children: ReactNode}) {
     return (
         <Box padding="2rem 2rem 0 2rem" bgGradient="linear(to-t, cyan.900 0%, cyan.100 100%)">
-            <RPNavbar />
+            {/* <RPNavbar /> */}
+            <RPNavbarButtoned />
             <RPHeader />
             <Flex width={["100%", "100%", "80%"]} m="auto" flexWrap="wrap" flexDirection={"row"}>
                 <Box p={0} width="100%" flex={["100% 0", "100% 0", "100% 0", "4 0", "4 0", "4 0"]}>{children}</Box>
