@@ -60,6 +60,8 @@ export function RPCommentForm({ slug }: CommentFormProps) {
             if (error) {
                 setResultMessage(error)
             } else {
+                setUsername("")
+                setBody("")
                 setResultMessage(`Votre commentaire a bien été envoyé. Il apparaîtra après validation par un administrateur.`)
             }
             setIsLoading(false)
@@ -101,6 +103,7 @@ export function RPCommentForm({ slug }: CommentFormProps) {
                 loadingText="Submitting..."
                 isDisabled={isErrorBody}
                 onClick={submit}
+                cursor="pointer"
                 m={4}
             >
                 SUBMIT

@@ -39,6 +39,7 @@ const NavLink = ({ link }: {link: {label: string, slug: string} }) => (
     fontSize="25px"
     textShadow="2px 2px 1px rgba(0, 0, 0, 0.2)"
     border="solid 1px rgba(0, 0, 0, 0.2)"
+    borderRadius="13px"
     transition="150ms"
 
     _hover={{
@@ -87,7 +88,7 @@ export default function RPNavbarButtoned() {
             size={'md'}
             icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
             aria-label={'Open Menu'}
-            display={{ md: 'none' }}
+            display={{ lg: 'none' }}
             onClick={isOpen ? onClose : onOpen}
           />
           <HStack spacing={8} w="100%" justifyContent="space-between" alignItems={'center'}>
@@ -95,17 +96,17 @@ export default function RPNavbarButtoned() {
             <HStack
               as={'nav'}
               spacing={4}
-              display={{ base: 'none', md: 'flex' }}>
+              display={{ base: 'none', lg: 'flex' }}>
               {Links.map((link) => (
                 <NavLink key={link.label} link={link} />
               ))}
             </HStack>
-            <RPSocialMedia />
+            <RPSocialMedia size="lg" />
           </HStack>
         </Flex>
 
         {isOpen ? (
-          <Box pb={4} display={{ md: 'none' }}>
+          <Box pb={4} display={{ lg: 'none' }}>
             <Stack as={'nav'} spacing={4}>
               {Links.map((link) => (
                 <NavLink key={link.label} link={link} />
