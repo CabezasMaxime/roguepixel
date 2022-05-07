@@ -10,7 +10,7 @@ export default function RPFooter() {
             bg={"gray.100"}
             boxShadow={"rgba(0, 0, 0, 0.4) 0px -2px 4px, rgba(0, 0, 0, 0.3) 0px -7px 13px -3px, rgba(0, 0, 0, 0.2) 0px 3px 0px inset;"}
             m="2rem auto 0 auto"
-            padding="1rem 5rem" 
+            padding={{base: "1rem 1rem", sm: "1rem 2rem", md: "1rem 5rem"}} 
             w={["100%", "100%", "80%"]}
             color="gray.600"
         >

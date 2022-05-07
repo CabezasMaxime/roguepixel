@@ -6,6 +6,13 @@ import {
     IconButton,
     useDisclosure,
     Stack,
+    Accordion,
+    AccordionItem,
+    AccordionButton,
+    AccordionIcon,
+    AccordionPanel,
+    Slide,
+    Collapse,
   } from '@chakra-ui/react';
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons';
 import RPSocialMedia from './RPSocialMedia';
@@ -87,12 +94,18 @@ export default function RPNavbarButtoned() {
           <IconButton
             size={'md'}
             icon={isOpen ? <CloseIcon /> : <HamburgerIcon />}
+            zIndex="1"
             aria-label={'Open Menu'}
             display={{ lg: 'none' }}
             onClick={isOpen ? onClose : onOpen}
           />
-          <HStack spacing={8} w="100%" justifyContent="space-between" alignItems={'center'}>
-            <Box><Link href="/">Logo</Link></Box>
+
+          <HStack spacing={{base: 0, sm: 8}} w="100%" justifyContent={{base: "flex-end", lg: "space-between"}} alignItems={'center'}>
+
+            <Box position={{base: "relative", sm: "absolute", lg: "relative"}} w={{base: "100%", lg: "auto"}} left="0" textAlign="center">
+              <Link href="/">Logo</Link>
+            </Box>
+
             <HStack
               as={'nav'}
               spacing={4}
@@ -104,16 +117,15 @@ export default function RPNavbarButtoned() {
             <RPSocialMedia size="lg" />
           </HStack>
         </Flex>
+        
+        <Collapse in={isOpen} unmountOnExit>
+          <Stack as={'nav'} p={2} spacing={4}>
+            {Links.map((link) => (
+              <NavLink key={link.label} link={link} />
+              ))}
+          </Stack>
+        </Collapse>
 
-        {isOpen ? (
-          <Box pb={4} display={{ lg: 'none' }}>
-            <Stack as={'nav'} spacing={4}>
-              {Links.map((link) => (
-                <NavLink key={link.label} link={link} />
-            ))}
-            </Stack>
-          </Box>
-        ) : null}
       </Box>
     );
 }
